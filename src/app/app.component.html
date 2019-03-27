@@ -1,0 +1,79 @@
+<div class="container-fluid">
+   <div class="row">
+     <!-->En-tête -->
+   <div class="col-md-4" id="titre">
+     <!--Logo et titre -->
+  <!--   <img src="/assets/images/fruit seller.jpg" alt ="logo marchand de fruits" width=100 height=100/>Fruit seller-->
+
+     <img [attr.src]="server+world.logo" [attr.width]=100 [attr.height]=100/><span id="worldname">{{world.name}}</span>
+
+   </div>
+   <!--Gain -->
+   <div class="col-md-4" id="dollards">$<span [innerHTML]="world.money | bigvalue"> </span></div>
+   <!--Bouton et id -->
+   <div class="col-md-4" >
+     <button class ="buy" type="button" id="droite">
+       Buy x1
+    </button>
+    <label for="id" id="droite">Your ID  : <input class="id" type="text" id ="id" name="id" value="ID" required ></label>
+    </div>
+</div>
+<!--Partie gauche -->
+   <div class="row">
+     <!-- Boutons partie gauche -->
+   <div class="col-md-2">
+
+     <button class ="investissement" type="button"> Unlocks</button> <br>
+     <button class ="investissement" type="button"> Cash Upgrades</button> <br>
+     <button class ="investissement" type="button"> Angel Upgrades</button> <br>
+     <button class ="investissement" type="button"> Managers</button> <br>
+     <button class ="investissement" type="button"> Investors</button>
+
+   </div>
+   <!--partie droite -->
+
+
+
+   <!--Produits -->
+
+
+   <div class="col-md-10" >
+
+        <div class="row">
+          <!--cerises-->
+          <app-product [prod]="world.products.product[0]"
+          class="product col-md-6"></app-product>
+
+           <!--raisins-->
+           <app-product [prod]="world.products.product[1]"
+           class="product col-md-6"></app-product>
+       </div>
+
+
+       <div class="row" >
+         <!--melon-->
+         <app-product [prod]="world.products.product[2]"
+         class="product col-md-6"></app-product>
+
+
+          <!--fraises-->
+          <app-product [prod]="world.products.product[3]"
+          class="product col-md-6"></app-product>
+          </div>
+
+
+       <div class="row" >
+         <!--pasteque-->
+         <app-product [prod]="world.products.product[4]"
+         class="product col-md-6"></app-product>
+
+
+          <!--mangue-->
+          <app-product [prod]="world.products.product[5]"
+          class="product col-md-6"></app-product>
+          </div>
+       </div>
+
+
+</div>
+</div>
