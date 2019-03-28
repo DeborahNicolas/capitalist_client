@@ -79,9 +79,24 @@ label{
   width: 135px;
 }
 
-.temps_cerise{
-  margin-left: 5px;
+.temps{
+  margin-left: 10px;
   width: 80px;
+  border-style:ridge;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.quantite{
+  margin-left: 50px;
+  width: 80px;
+  border-style:ridge;
+  padding-left: 90px;
+  padding-right: 25px;
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 
 .qte{
