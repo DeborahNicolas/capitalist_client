@@ -6,9 +6,16 @@
 
 
     <div class="progress" #bar style="display:inline-block;"> </div><br>
-            <input class="qte" type="text" id ="qte" name="id" value="0" required >
 
-            <var class ="quantite">{{product?.quantite}}</var>
+
+          <!--  <var class ="qte">{{product?.quantite}}</var>-->
+            <span class ="qte">{{product?.quantite}}</span>
+
+
+
+                <span class="quantite" [innerHTML]="calcMaxCanBuy()"></span>
+
+
 
 
     <var class ="temps">{{product?.timeleft | date:'mm:ss' }}</var>

@@ -90,17 +90,20 @@ label{
 }
 
 .quantite{
-  margin-left: 50px;
-  width: 80px;
+  width: 120px;
   border-style:ridge;
-  padding-left: 90px;
-  padding-right: 25px;
+  padding-left: 70px;
   padding-top: 2px;
   padding-bottom: 2px;
+  text-align: center;
 }
 
 .qte{
   border: none;
   width: 100px;
+  padding-right: 80px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 60px;
   text-align: center;
 }

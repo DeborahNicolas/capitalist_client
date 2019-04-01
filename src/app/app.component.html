@@ -12,10 +12,12 @@
    <div class="col-md-4" id="dollards">$<span [innerHTML]="world.money | bigvalue"> </span></div>
    <!--Bouton et id -->
    <div class="col-md-4" >
-     <button class ="buy" type="button" id="droite">
-       Buy x1
+     <button class ="buy" type="button" id="droite" (click)="onClickqtMulti()">
+       {{this.qtmulti}}
     </button>
     <label for="id" id="droite">Your ID  : <input class="id" type="text" id ="id" name="id" value="ID" required ></label>
+
+
     </div>
 </div>
 <!--Partie gauche -->
@@ -36,41 +38,40 @@
 
    <!--Produits -->
 
-
    <div class="col-md-10" >
 
         <div class="row">
           <!--cerises-->
-          <app-product [prod]="world.products.product[0]"
-          class="product col-md-6" (notifyProduction)="onProductionDone($event)"></app-product>
+          <app-product [qtmulti]="qtmulti" [money]="world.money" [prod]="world.products.product[0]"
+          class="product col-md-6" (notifyProduction)="onProductionDone($event)" (notifyBuyProduct)="onBuy($event)"></app-product>
 
            <!--raisins-->
-           <app-product [prod]="world.products.product[1]"
-           class="product col-md-6" (notifyProduction)="onProductionDone($event)"></app-product>
+           <app-product [qtmulti]="qtmulti" [money]="world.money" [prod]="world.products.product[1]"
+           class="product col-md-6" (notifyProduction)="onProductionDone($event)" (notifyBuyProduct)="onBuy($event)"></app-product>
        </div>
 
 
        <div class="row" >
          <!--melon-->
-         <app-product [prod]="world.products.product[2]"
-         class="product col-md-6" (notifyProduction)="onProductionDone($event)"></app-product>
+         <app-product [qtmulti]="qtmulti" [money]="world.money" [prod]="world.products.product[2]"
+         class="product col-md-6" (notifyProduction)="onProductionDone($event)" (notifyBuyProduct)="onBuy($event)"></app-product>
 
 
           <!--fraises-->
-          <app-product [prod]="world.products.product[3]"
-          class="product col-md-6" (notifyProduction)="onProductionDone($event)"></app-product>
+          <app-product [qtmulti]="qtmulti" [money]="world.money" [prod]="world.products.product[3]"
+          class="product col-md-6" (notifyProduction)="onProductionDone($event)" (notifyBuyProduct)="onBuy($event)"></app-product>
           </div>
 
 
        <div class="row" >
          <!--pasteque-->
-         <app-product [prod]="world.products.product[4]"
-         class="product col-md-6" (notifyProduction)="onProductionDone($event)"></app-product>
+         <app-product [qtmulti]="qtmulti" [money]="world.money" [prod]="world.products.product[4]"
+         class="product col-md-6" (notifyProduction)="onProductionDone($event)" (notifyBuyProduct)="onBuy($event)"></app-product>
 
 
           <!--mangue-->
-          <app-product [prod]="world.products.product[5]"
-          class="product col-md-6" (notifyProduction)="onProductionDone($event)"></app-product>
+          <app-product [qtmulti]="qtmulti" [money]="world.money" [prod]="world.products.product[5]"
+          class="product col-md-6" (notifyProduction)="onProductionDone($event)" (notifyBuyProduct)="onBuy($event)"></app-product>
           </div>
        </div>
 

@@ -21,8 +21,24 @@ export class ProductComponent implements OnInit {
   progressbar: any;
   timeleft :number;
   lastupdate : number;
+  nbBuy : number;
+  achat : number;
+  croissance : number;
 
   @ViewChild('bar') progressBarItem;
+
+  _qtmulti: string;
+   @Input()
+   set qtmulti(value: string) {
+     this._qtmulti = value;
+     if (this._qtmulti && this.product) this.calcMaxCanBuy();
+   }
+
+   _money : number;
+@Input()
+  set money(value: number) {
+  this._money = value;
+}
 
 
 
@@ -37,12 +53,15 @@ export class ProductComponent implements OnInit {
 
 
 barprogression(){
-  this.progressbar.animate(1, { duration: this.product.vitesse });
-//  this.progressbar.set(progress);
+  if(this.product.quantite!=0){
+    this.progressbar.animate(1, { duration: this.product.vitesse });
+  //  this.progressbar.set(progress);
 
-  this.product.timeleft = this.product.vitesse;
-  this.lastupdate =Date.now();
+    this.product.timeleft = this.product.vitesse;
+    this.lastupdate =Date.now();
+  }
 }
+
 
 calcScore(){
   if(this.product.timeleft>0){
@@ -60,11 +79,26 @@ calcScore(){
 
 }
 
+
+calcMaxCanBuy() {
+
+
+
+let n = Math.round(this.money / this.product.cout );
+console.log(n);
+const qtMax = (this.product.cout * (1 - Math.pow(this.product.croissance, n+1))/(1-this.product.croissance));
+  console.log(Math.round(qtMax));
+  return Math.round(qtMax);
+
+  }
+
+
+
   @Input()
   set prod(value: Product) {
     this.product = value;
   }
 
   @Output() notifyProduction: EventEmitter<Product> = new EventEmitter<Product>();
-
+@Output() notifyBuyProduct: EventEmitter<number> = new EventEmitter<number>();
  }
