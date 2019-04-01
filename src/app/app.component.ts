@@ -18,6 +18,14 @@ export class AppComponent {
      world => {
       this.world = world;
     });
+  }
+
+
+  onProductionDone(p : Product) {
+      this.world.money += (p.revenu * p.quantite);
+      this.world.score += (p.revenu * p.quantite);
     }
+
+
 
 }

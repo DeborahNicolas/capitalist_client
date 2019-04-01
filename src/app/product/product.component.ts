@@ -1,13 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Input } from '@angular/core';
+import { Component, Input, EventEmitter, Output, OnInit, ViewChild } from '@angular/core';
 
 import { Product } from '../world';
-import { ViewChild } from '@angular/core';
 
 
 declare var require;
 const ProgressBar = require("progressbar.js");
-
 
 
 @Component({
@@ -19,13 +16,15 @@ const ProgressBar = require("progressbar.js");
 
 export class ProductComponent implements OnInit {
 
-
   product: Product;
   server= 'http://localhost:8080';
   progressbar: any;
   timeleft :number;
+  lastupdate : number;
 
   @ViewChild('bar') progressBarItem;
+
+
 
   constructor() { }
 
@@ -50,17 +49,22 @@ calcScore(){
   //  var now = Date.now;
     this.product.timeleft = this.product.timeleft - (Date.now()-this.lastupdate);
     this.lastupdate = Date.now();
+
     if(this.product.timeleft<=0){
       this.product.timeleft = 0;
       this.progressbar.set(0);
+      // on prévient le composant parent que ce produit a généré son revenu.
+      this.notifyProduction.emit(this.product);
     }
 }
-}
 
+}
 
   @Input()
   set prod(value: Product) {
     this.product = value;
   }
+
+  @Output() notifyProduction: EventEmitter<Product> = new EventEmitter<Product>();
 
  }

@@ -42,35 +42,35 @@
         <div class="row">
           <!--cerises-->
           <app-product [prod]="world.products.product[0]"
-          class="product col-md-6"></app-product>
+          class="product col-md-6" (notifyProduction)="onProductionDone($event)"></app-product>
 
            <!--raisins-->
            <app-product [prod]="world.products.product[1]"
-           class="product col-md-6"></app-product>
+           class="product col-md-6" (notifyProduction)="onProductionDone($event)"></app-product>
        </div>
 
 
        <div class="row" >
          <!--melon-->
          <app-product [prod]="world.products.product[2]"
-         class="product col-md-6"></app-product>
+         class="product col-md-6" (notifyProduction)="onProductionDone($event)"></app-product>
 
 
           <!--fraises-->
           <app-product [prod]="world.products.product[3]"
-          class="product col-md-6"></app-product>
+          class="product col-md-6" (notifyProduction)="onProductionDone($event)"></app-product>
           </div>
 
 
        <div class="row" >
          <!--pasteque-->
          <app-product [prod]="world.products.product[4]"
-         class="product col-md-6"></app-product>
+         class="product col-md-6" (notifyProduction)="onProductionDone($event)"></app-product>
 
 
           <!--mangue-->
           <app-product [prod]="world.products.product[5]"
-          class="product col-md-6"></app-product>
+          class="product col-md-6" (notifyProduction)="onProductionDone($event)"></app-product>
           </div>
        </div>
 
