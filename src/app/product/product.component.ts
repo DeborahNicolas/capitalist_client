@@ -82,15 +82,37 @@ calcScore(){
 
 calcMaxCanBuy() {
 
+  if (this._qtmulti == "x1") {
 
+      let qtMax =  this.product.cout * this.product.croissance;
 
-let n = Math.round(this.money / this.product.cout );
-console.log(n);
-const qtMax = (this.product.cout * (1 - Math.pow(this.product.croissance, n+1))/(1-this.product.croissance));
-  console.log(Math.round(qtMax));
-  return Math.round(qtMax);
+  //  const qtMax = (Math.log((-this._money * (1 - this.product.croissance)) / this.product.cout + 1 )) / Math.log(this.product.croissance);
+          this.nbBuy = 1;
+          return Math.round(qtMax);
 
   }
+
+  if (this._qtmulti == "x10") {
+      const qtMax = (this.product.cout * (1 - Math.pow(this.product.croissance, 10))/(1-this.product.croissance));
+    this.nbBuy = 10;
+  }
+
+  if (this._qtmulti == "x100") {
+    const qtMax = (this.product.cout * (1 - Math.pow(this.product.croissance, 100))/(1-this.product.croissance));
+    this.nbBuy = 100;
+  }
+
+  if (this._qtmulti == "xMax") {
+    //  let n = Math.round(this.money / this.product.cout );
+    //  console.log(n);
+    //  const qtMax = (this.product.cout * (1 - Math.pow(this.product.croissance, 4))/(1-this.product.croissance));
+    //    console.log(Math.round(qtMax));
+    const qtMax = (this.product.cout * (1 - Math.pow(this.product.croissance, 4))/(1-this.product.croissance));
+    //    console.log(Math.round(qtMax));
+    this.nbBuy = 600; //Pour tester
+  }
+
+}
 
 
 

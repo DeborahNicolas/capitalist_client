@@ -98,6 +98,14 @@ label{
   text-align: center;
 }
 
+.quantite2{
+  border-style:ridge;
+  padding-left: 70px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  text-align: center;
+}
+
 .qte{
   border: none;
   width: 100px;

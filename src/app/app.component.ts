@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChildren, QueryList } from '@angular/core';
 import { RestserviceService } from './restservice.service';
 import { World, Product, Pallier } from './world';
+import { ProductComponent } from './product/product.component';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,8 @@ export class AppComponent {
   world: World = new World();
   server= 'http://localhost:8080';
   qtmulti = 'x1';
+
+  @ViewChildren(ProductComponent) productsComponent : QueryList<ProductComponent>;
 
   constructor(private service: RestserviceService) {
    this.server = service.getServer();
