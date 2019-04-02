@@ -13,6 +13,7 @@ export class AppComponent {
   world: World = new World();
   server= 'http://localhost:8080';
   qtmulti = "x1";
+  seuil : number ;
 
   @ViewChildren(ProductComponent) productsComponent : QueryList<ProductComponent>;
 
@@ -42,9 +43,17 @@ export class AppComponent {
       }
     }
 
-    onBuy(buy : number) {
+onBuy(buy : number) {
       this.world.money -= buy;
       }
+
+managerHired(manager : Pallier) {
+          if (this.world.money >= manager.seuil && this.world.products.product[manager.idcible-1].managerUnlocked == false) {
+            this.world.money -= manager.seuil;
+            this.world.products.product[manager.idcible-1].managerUnlocked = true;
+            this.world.managers.pallier[manager.idcible-1].unlocked = true;
+          }
+        }
 
 
 

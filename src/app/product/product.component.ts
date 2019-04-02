@@ -76,6 +76,9 @@ calcScore(){
       this.progressbar.set(0);
       // on prévient le composant parent que ce produit a généré son revenu.
       this.notifyProduction.emit(this.product);
+      if (this.product.managerUnlocked) {
+          this.barprogression();
+        }
     }
 }
 

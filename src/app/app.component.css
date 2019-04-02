@@ -89,3 +89,26 @@ label{
   width: 100px;
   text-align: center;
 }
+
+.btnManager{
+  width: 100px;
+  height: 35px;
+  font-family: serif;
+  background:#fafafa;
+  font:13px serif;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.manager{
+  text-align: center;
+}
+
+li{
+  list-style: none;
+}
+
+.app-modal-header{
+  margin-left: auto;
+  margin-right: auto;
+}

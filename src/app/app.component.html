@@ -28,10 +28,36 @@
      <button class ="investissement" type="button"> Unlocks</button> <br>
      <button class ="investissement" type="button"> Cash Upgrades</button> <br>
      <button class ="investissement" type="button"> Angel Upgrades</button> <br>
-     <button class ="investissement" type="button"> Managers</button> <br>
+     <button class ="investissement" type="button"
+ data-toggle="modal" (click)="managersModal.show()"> Managers</button> <br>
      <button class ="investissement" type="button"> Investors</button>
 
+
    </div>
+
+<div class="manager">
+   <app-modal #managersModal>
+    <div class="app-modal-header">
+    <h4 class="modal-title">Choose your favorite managers !</h4>
+    </div>
+    <div class="app-modal-body">
+
+    <div *ngFor="let manager of world.managers.pallier">
+        <li>
+            <img [src]="server+manager.logo" alt="" [attr.width]=70 [attr.height]=70/><br>
+            <span>{{manager.name}}</span>
+            <p>$ {{manager.seuil}}</p>
+            <button class ="btnManager" type="button" *ngIf="manager.unlocked == false" (click)="managerHired(manager)">Hire!</button>
+        </li>
+    </div>
+    </div>
+    <div class="app-modal-footer">
+    <button type="button" class="btn btn-default"
+   (click)="managersModal.hide()">Close</button>
+    </div>
+   </app-modal>
+</div>
+
    <!--partie droite -->
 
 
