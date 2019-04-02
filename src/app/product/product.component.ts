@@ -80,9 +80,7 @@ calcScore(){
           this.barprogression();
         }
     }
-}
-
-}
+}}
 
 
 calcMaxCanBuy() {
