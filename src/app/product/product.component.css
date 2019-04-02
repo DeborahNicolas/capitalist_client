@@ -45,16 +45,14 @@ label{
   text-decoration: underline;
 }
 
-.investissement{
-  margin-top: 16%;
-  margin-bottom: 23%;
-  width: 220px;
+.acheter{
+  width: 50px;
   height: 35px;
   font-family: serif;
   	background:#fafafa;
   	font:13px serif;
-    margin-right: 10px;
-    font-size: 18px;
+    font-size: 15px;
+  margin-left: 10px;
 }
 
 .col-sm{
@@ -92,7 +90,9 @@ label{
 .quantite{
   width: 120px;
   border-style:ridge;
-  padding-left: 70px;
+  border-right: none;
+  padding-left: 10px;
+  padding-right: 10px;
   padding-top: 2px;
   padding-bottom: 2px;
   text-align: center;
@@ -100,7 +100,9 @@ label{
 
 .quantite2{
   border-style:ridge;
-  padding-left: 70px;
+  border-left: none;
+  padding-left: 10px;
+  padding-right: 10px;
   padding-top: 2px;
   padding-bottom: 2px;
   text-align: center;

@@ -7,15 +7,16 @@
 
     <div class="progress" #bar style="display:inline-block;"> </div><br>
 
-
           <!--  <var class ="qte">{{product?.quantite}}</var>-->
             <span class ="qte">{{product?.quantite}}</span>
 
 
 
-                <span class="quantite" [innerHTML]="calcMaxCanBuy()"></span>
+                <span class="quantite" [innerHTML]="nbmax"></span>
+
 
                 <span class="quantite2" [innerHTML]="nbBuy"></span>
+                <input type="button" class="acheter" value ="Buy" (click)="achat()"/>
 
 
 

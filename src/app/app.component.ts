@@ -12,7 +12,7 @@ export class AppComponent {
   title = 'capitalist';
   world: World = new World();
   server= 'http://localhost:8080';
-  qtmulti = 'x1';
+  qtmulti = "x1";
 
   @ViewChildren(ProductComponent) productsComponent : QueryList<ProductComponent>;
 

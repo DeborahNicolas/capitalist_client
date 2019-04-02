@@ -1,5 +1,4 @@
 import { Component, Input, EventEmitter, Output, OnInit, ViewChild } from '@angular/core';
-
 import { Product } from '../world';
 
 
@@ -22,12 +21,13 @@ export class ProductComponent implements OnInit {
   timeleft :number;
   lastupdate : number;
   nbBuy : number;
-  achat : number;
+  nbmax : number;
   croissance : number;
+  cout : number;
 
   @ViewChild('bar') progressBarItem;
 
-  _qtmulti: string;
+  _qtmulti ="x1";
    @Input()
    set qtmulti(value: string) {
      this._qtmulti = value;
@@ -38,11 +38,13 @@ export class ProductComponent implements OnInit {
 @Input()
   set money(value: number) {
   this._money = value;
+  if (this._qtmulti && this.product) this.calcMaxCanBuy();
 }
 
 
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
 
@@ -81,36 +83,119 @@ calcScore(){
 
 
 calcMaxCanBuy() {
+  var qtMax = 0;
+  var cout = 0;
 
   if (this._qtmulti == "x1") {
 
-      let qtMax =  this.product.cout * this.product.croissance;
+    //  let qtMax =  this.product.cout * this.product.croissance;
+
+    //  console.log(this.product);
 
   //  const qtMax = (Math.log((-this._money * (1 - this.product.croissance)) / this.product.cout + 1 )) / Math.log(this.product.croissance);
-          this.nbBuy = 1;
-          return Math.round(qtMax);
+    //      this.nbBuy = 1;
+      //    this.nbmax = Math.round(qtMax);
+
+
+          if (this.product.quantite == 0) {
+            qtMax =  this.product.cout;
+            this.nbBuy = 1;
+            cout = this.product.cout;
+            this.nbmax = Math.round(qtMax);
+          } else {
+            qtMax =  this.product.cout * this.product.croissance;
+            this.nbBuy = 1;
+            cout = this.product.cout * this.product.croissance;
+            this.nbmax = Math.round(qtMax);
+          }
 
   }
 
   if (this._qtmulti == "x10") {
-      const qtMax = (this.product.cout * (1 - Math.pow(this.product.croissance, 10))/(1-this.product.croissance));
-    this.nbBuy = 10;
+    //  const qtMax = (this.product.cout * (1 - Math.pow(this.product.croissance, 10))/(1-this.product.croissance));
+  //  this.nbBuy = 10;
+  //  this.nbmax =  Math.round(qtMax);
+
+    if (this.product.quantite == 0) {
+        qtMax =  (this.product.cout * (1 - Math.pow(this.product.croissance, 10))/(1-this.product.croissance));
+        this.nbBuy = 10;
+        cout = this.product.cout * Math.pow(this.product.croissance, 10);
+        this.nbmax =  Math.round(qtMax);
+    } else {
+        qtMax =  (this.product.cout * this.product.croissance * (1 - Math.pow(this.product.croissance, 10))/(1-this.product.croissance));
+        this.nbBuy = 10;
+        cout = this.product.cout * Math.pow(this.product.croissance, 10);
+        this.nbmax =  Math.round(qtMax);
+      }
+
   }
 
   if (this._qtmulti == "x100") {
-    const qtMax = (this.product.cout * (1 - Math.pow(this.product.croissance, 100))/(1-this.product.croissance));
-    this.nbBuy = 100;
+  //  const qtMax = (this.product.cout * (1 - Math.pow(this.product.croissance, 100))/(1-this.product.croissance));
+  //  this.nbBuy = 100;
+    //this.nbmax =  Math.round(qtMax);
+
+
+    if (this.product.quantite == 0) {
+        qtMax =  (this.product.cout * (1 - Math.pow(this.product.croissance, 100))/(1-this.product.croissance));
+        this.nbBuy = 100;
+        cout = this.product.cout * Math.pow(this.product.croissance, 100);
+        this.nbmax =  Math.round(qtMax);
+    } else {
+        qtMax =  (this.product.cout * this.product.croissance * (1 - Math.pow(this.product.croissance, 100))/(1-this.product.croissance));
+        this.nbBuy = 100;
+        cout = this.product.cout * Math.pow(this.product.croissance, 100);
+        this.nbmax =  Math.round(qtMax);
+      }
+
   }
 
   if (this._qtmulti == "xMax") {
-    //  let n = Math.round(this.money / this.product.cout );
-    //  console.log(n);
-    //  const qtMax = (this.product.cout * (1 - Math.pow(this.product.croissance, 4))/(1-this.product.croissance));
-    //    console.log(Math.round(qtMax));
-    const qtMax = (this.product.cout * (1 - Math.pow(this.product.croissance, 4))/(1-this.product.croissance));
-    //    console.log(Math.round(qtMax));
-    this.nbBuy = 600; //Pour tester
-  }
+
+
+  //const qtMax = (Math.log((-this._money * (1- this.product.croissance)) * this.product.cout + 1)) / Math.log(this.product.croissance);
+
+
+
+  let n = Math.log( 1 -
+          (((1 - this.product.croissance) * this._money)
+          / (this.product.cout * this.product.croissance)) )
+       / Math.log(this.product.croissance);
+      n = Math.floor(n);
+    //  this.nbBuy = Math.round(this.product.cout * this.product.croissance ** n);
+
+        //    this.nbmax =  Math.round(qtMax);
+
+
+      //  let qtMax = 0;
+        if (this.product.quantite == 0) {
+          qtMax =  this.product.cout * this.product.croissance * (1- Math.pow(this.product.croissance, n))/(1-this.product.croissance);
+        } else {
+          qtMax =  this.product.cout * (1- Math.pow(this.product.croissance, n))/(1-this.product.croissance);
+        }
+        cout = this.product.cout * Math.pow(this.product.croissance, n);
+        this.nbBuy = n;
+        this.nbmax =  Math.round(qtMax);
+        }
+
+
+}
+
+
+achat() {
+
+
+  if (this._money >= this.nbmax && this.nbmax != 0) {
+    this.product.cout = this.nbmax;
+    console.log(this.product.cout);
+    this.product.quantite += this.nbBuy;
+    this._money -= this.product.cout;
+    console.log(this._money);
+    this.notifyBuyProduct.emit(this.nbmax);
+        } else {
+          console.log("pas assez d'argent");
+        }
+
 
 }
 
