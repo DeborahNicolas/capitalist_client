@@ -15,7 +15,7 @@
      <button class ="buy" type="button" id="droite" (click)="onClickqtMulti()">
        {{this.qtmulti}}
     </button>
-    <label for="id" id="droite">Your ID  : <input class="id" type="text" id ="id" name="id" value="ID" required ></label>
+    <label for="id" id="droite">Your ID  : <input class="id" id ="id" [(ngModel)]="username" (change)="onUsernameChanged()"></label>
 
 
     </div>

@@ -11,6 +11,8 @@ import {NgModule, Component} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToasterModule, ToasterService} from 'angular2-toaster';
 
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import {ToasterModule, ToasterService} from 'angular2-toaster';
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ToasterModule.forRoot()
+    ToasterModule.forRoot(),
+    FormsModule
   ],
   providers: [ToasterModule],
   bootstrap: [AppComponent]
