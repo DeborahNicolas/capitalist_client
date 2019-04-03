@@ -63,5 +63,15 @@ managerHired(manager : Pallier) {
         }
 
 
+badgeManager() {
+    let i : number;
+      for (i = 0 ; i < this.world.managers.pallier.length; i++) {
+        if (this.world.managers.pallier[i].seuil < this.world.money && !this.world.managers.pallier[i].unlocked) {
+          return true;
+              }
+            }
+          }
+
+
 
 }

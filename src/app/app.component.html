@@ -23,13 +23,14 @@
 <!--Partie gauche -->
    <div class="row">
      <!-- Boutons partie gauche -->
-   <div class="col-md-2">
+   <div class="col-md-2" data-toggle="modal">
+
 
      <button class ="investissement" type="button"> Unlocks</button> <br>
      <button class ="investissement" type="button"> Cash Upgrades</button> <br>
      <button class ="investissement" type="button"> Angel Upgrades</button> <br>
      <button class ="investissement" type="button"
- data-toggle="modal" (click)="managersModal.show()"> Managers</button> <br>
+ data-toggle="modal" (click)="managersModal.show()"><span class="badge" *ngIf="badgeManager() == true">New</span> Managers</button><br>
      <button class ="investissement" type="button"> Investors</button>
 
 
