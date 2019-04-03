@@ -2,6 +2,9 @@ import { Component, ViewChildren, QueryList } from '@angular/core';
 import { RestserviceService } from './restservice.service';
 import { World, Product, Pallier } from './world';
 import { ProductComponent } from './product/product.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ToasterModule, ToasterService} from 'angular2-toaster';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -14,11 +17,13 @@ export class AppComponent {
   server= 'http://localhost:8080';
   qtmulti = "x1";
   seuil : number ;
+  toasterService: ToasterService;
 
   @ViewChildren(ProductComponent) productsComponent : QueryList<ProductComponent>;
 
-  constructor(private service: RestserviceService) {
+  constructor(service : RestserviceService, toaster : ToasterService) {
    this.server = service.getServer();
+   this.toasterService = toaster;
    service.getWorld().then(
      world => {
       this.world = world;
@@ -52,6 +57,8 @@ managerHired(manager : Pallier) {
             this.world.money -= manager.seuil;
             this.world.products.product[manager.idcible-1].managerUnlocked = true;
             this.world.managers.pallier[manager.idcible-1].unlocked = true;
+            this.toasterService.pop('success', 'Manager hired ! ', manager.name);
+            console.log(manager.name);
           }
         }
 
