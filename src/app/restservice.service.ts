@@ -34,8 +34,18 @@ constructor(private http: HttpClient) {
   console.error('An error occurred', error);
   return Promise.reject(error.message || error);
  }
+
+
+ private setHeaders(user : string) : Headers {
+  var headers = new Headers();
+  headers.append("X-User",user);
+  return headers;
+ }
+
+// comme version supérieure à 4.3, pas besoin de mettre en json car les nouvelles versions angular convertissent automatiquement en json.
  getWorld(): Promise<World> {
-  return this.http.get(this._server + "capitalist/generic/world")
+  return this.http.get(this._server + "capitalist/generic/world", {
+ headers: this.setHeaders(this._user)})
   .toPromise().catch(this.handleError);
  };
 
