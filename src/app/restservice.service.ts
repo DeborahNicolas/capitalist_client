@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { World, Pallier, Product } from './world';
+import {Headers} from '@angular/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,8 @@ constructor(private http: HttpClient) {
    this._server = val;
  }
 
+ //transmettre le nom de l’utilisateur dans l’entête http avec un header
+
  private handleError(error: any): Promise<any> {
   console.error('An error occurred', error);
   return Promise.reject(error.message || error);
@@ -38,15 +41,33 @@ constructor(private http: HttpClient) {
 
  private setHeaders(user : string) : Headers {
   var headers = new Headers();
-  headers.append("X-User",user);
+  headers.append("X-User", user);
   return headers;
  }
 
+//Tentative d'ajout d'un monde propre à chaque utilisateur, il y a peut être un problème de version
+
 // comme version supérieure à 4.3, pas besoin de mettre en json car les nouvelles versions angular convertissent automatiquement en json.
+ //getWorld(username: string): Promise<World> {
+   //const httpOpntions = {
+  //   headers: new HttpHeaders({
+    //   'X-User': username
+  //   })
+  // }
+  //return this.http.get(this._server + "capitalist/generic/world", httpOpntions)
+  //.toPromise().catch(this.handleError);
+ //};
+
+
+//méthode getWorld() qui réalise l’appel GET /world au service web. 
  getWorld(): Promise<World> {
+
   return this.http.get(this._server + "capitalist/generic/world", {
+
  headers: this.setHeaders(this._user)})
+
   .toPromise().catch(this.handleError);
+
  };
 
 

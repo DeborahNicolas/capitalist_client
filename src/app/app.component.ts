@@ -21,8 +21,12 @@ export class AppComponent {
   toasterService: ToasterService;
   username : string;
 
+//Appel à l'enfant : product component
   @ViewChildren(ProductComponent) productsComponent : QueryList<ProductComponent>;
 
+//Pseudo du joueur
+//Sauvegarder la valeur : localStorage
+// et mise à jour cette valeur
   constructor(service : RestserviceService, toaster : ToasterService) {
    this.server = service.getServer();
    this.toasterService = toaster;
@@ -33,18 +37,21 @@ export class AppComponent {
       localStorage.setItem("username", this.username);
     }
 
+//service.getWorld(this.username).then(
    service.getWorld().then(
      world => {
       this.world = world;
     });
   }
 
-
+//Quand la production d'un produit est lancé, mon argent et mon score augmente.
   onProductionDone(p : Product) {
       this.world.money += (p.revenu * p.quantite);
       this.world.score += (p.revenu * p.quantite);
     }
 
+//Effet du click sur le bouton :
+//passe de x1 à x10 à x100 à xMax
   onClickqtMulti() {
       if (this.qtmulti == 'x1') {
         this.qtmulti = 'x10';
@@ -61,6 +68,11 @@ onBuy(buy : number) {
       this.world.money -= buy;
       }
 
+//Engagement Manager :
+//Si mon argent est suffisant pour l'acheter et si je l'ai pas encore débloqué :
+//Je soustrais le cout du manager à mon argent
+//Je débloque le managers
+//je renvoi un message ephemere qui ne marche pas pour cause de version.
 managerHired(manager : Pallier) {
           if (this.world.money >= manager.seuil && this.world.products.product[manager.idcible-1].managerUnlocked == false) {
             this.world.money -= manager.seuil;
@@ -71,7 +83,8 @@ managerHired(manager : Pallier) {
           }
         }
 
-
+//Badge qui s'affiche sur le bouton Manager lorsque j'ai assez d'argent pour acheter un manager et que
+//je ne l'ai pas encore acheté.
 badgeManager() {
     let i : number;
       for (i = 0 ; i < this.world.managers.pallier.length; i++) {

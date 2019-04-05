@@ -24,10 +24,11 @@ export class ProductComponent implements OnInit {
   nbmax : number;
   croissance : number;
   cout : number;
+  _qtmulti ="x1";
 
   @ViewChild('bar') progressBarItem;
 
-  _qtmulti ="x1";
+//réceptionner la valeur de qtmulti (x1,x10,x100,xMax) via un setter pour pouvoir agir quand la valeur change
    @Input()
    set qtmulti(value: string) {
      this._qtmulti = value;
@@ -47,13 +48,16 @@ export class ProductComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    //Création de la barre de progression pour la vente d'un produit. On appel calcScore pour qu'il calcule
+    //notre score et notre argent quand la barre est chargée en entier
     this.progressbar = new ProgressBar.Line(this.progressBarItem.nativeElement, { strokeWidth: 50, color: '#00ff00' });
     setInterval(() => { this.calcScore(); }, 100);
 
   }
 
-
+//Fonction barprogression qui est appelé lors d'un click sur l'image d'un produit.
+//Si la quantité de notre produit est différent de 0, alors (au click) la barre s'anime puis se remet à 0 à la fin de son
+//animation. Le temps est défini par la vitesse de production du produit.
 barprogression(){
   if(this.product.quantite!=0){
     this.progressbar.animate(1, { duration: this.product.vitesse });
@@ -65,9 +69,14 @@ barprogression(){
 }
 
 
+//fonction de calcul du score
+//Pour chaque produit et en fonction du temps écoulé depuis la dernière fois, elle décrémente le temps restant de production du
+//produit, et si ce temps devient négatif ou nul, elle ajoute l’argent généré au score et efface la barre de production.
 calcScore(){
   if(this.product.timeleft>0){
   //  var now = Date.now;
+
+  //On décrémente le temps restant.
     this.product.timeleft = this.product.timeleft - (Date.now()-this.lastupdate);
     this.lastupdate = Date.now();
 
@@ -76,27 +85,22 @@ calcScore(){
       this.progressbar.set(0);
       // on prévient le composant parent que ce produit a généré son revenu.
       this.notifyProduction.emit(this.product);
+      //Si le manager est débloqué, on lance la barre de progression automatiquement.
       if (this.product.managerUnlocked) {
           this.barprogression();
         }
     }
 }}
 
-
+//Calcul de la qté supplementaire maximale achetable
+// selon si la qtmulti est x1; x10; x100 ou au max
+//(prend en compte la croissance d'un cout)
+//Utilisation d'un calcul d'une suite géométrique
 calcMaxCanBuy() {
   var qtMax = 0;
   var cout = 0;
 
   if (this._qtmulti == "x1") {
-
-    //  let qtMax =  this.product.cout * this.product.croissance;
-
-    //  console.log(this.product);
-
-  //  const qtMax = (Math.log((-this._money * (1 - this.product.croissance)) / this.product.cout + 1 )) / Math.log(this.product.croissance);
-    //      this.nbBuy = 1;
-      //    this.nbmax = Math.round(qtMax);
-
 
           if (this.product.quantite == 0) {
             qtMax =  this.product.cout;
@@ -113,12 +117,9 @@ calcMaxCanBuy() {
   }
 
   if (this._qtmulti == "x10") {
-    //  const qtMax = (this.product.cout * (1 - Math.pow(this.product.croissance, 10))/(1-this.product.croissance));
-  //  this.nbBuy = 10;
-  //  this.nbmax =  Math.round(qtMax);
 
     if (this.product.quantite == 0) {
-        qtMax =  (this.product.cout * (1 - Math.pow(this.product.croissance, 10))/(1-this.product.croissance));
+        qtMax =  (this.product.cout * (1 - Math.pow(this.product.croissance, 10))/(1-this.product.croissance)); //pow : puissance
         this.nbBuy = 10;
         cout = this.product.cout * Math.pow(this.product.croissance, 10);
         this.nbmax =  Math.round(qtMax);
@@ -132,10 +133,6 @@ calcMaxCanBuy() {
   }
 
   if (this._qtmulti == "x100") {
-  //  const qtMax = (this.product.cout * (1 - Math.pow(this.product.croissance, 100))/(1-this.product.croissance));
-  //  this.nbBuy = 100;
-    //this.nbmax =  Math.round(qtMax);
-
 
     if (this.product.quantite == 0) {
         qtMax =  (this.product.cout * (1 - Math.pow(this.product.croissance, 100))/(1-this.product.croissance));
@@ -154,21 +151,13 @@ calcMaxCanBuy() {
   if (this._qtmulti == "xMax") {
 
 
-  //const qtMax = (Math.log((-this._money * (1- this.product.croissance)) * this.product.cout + 1)) / Math.log(this.product.croissance);
-
-
-
   let n = Math.log( 1 -
           (((1 - this.product.croissance) * this._money)
           / (this.product.cout * this.product.croissance)) )
        / Math.log(this.product.croissance);
       n = Math.floor(n);
-    //  this.nbBuy = Math.round(this.product.cout * this.product.croissance ** n);
-
-        //    this.nbmax =  Math.round(qtMax);
 
 
-      //  let qtMax = 0;
         if (this.product.quantite == 0) {
           qtMax =  this.product.cout * this.product.croissance * (1- Math.pow(this.product.croissance, n))/(1-this.product.croissance);
         } else {
@@ -182,6 +171,9 @@ calcMaxCanBuy() {
 
 }
 
+//fonction achat :
+// si j'ai assez d'argent et que je peux acheter, j'augmente ma quantité en stock et je depense la somme demandee
+// sinon on me dit que je n'ai pas assez
 
 achat() {
 
@@ -207,6 +199,8 @@ achat() {
     this.product = value;
   }
 
+  //Evenement de sortie
+  //Le composant produit communique avec son parent pour indiquer qu'il faut augmenter l'argent possédé par le joueur
   @Output() notifyProduction: EventEmitter<Product> = new EventEmitter<Product>();
 @Output() notifyBuyProduct: EventEmitter<number> = new EventEmitter<number>();
  }

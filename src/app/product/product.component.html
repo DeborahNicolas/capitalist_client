@@ -1,3 +1,4 @@
+<!--description des preoduits -->
 <div class="col-sm" id="produit">
 
           <!--  <img src="/assets/images/cerises.png" alt ="cerises" width=100 height=100/>-->
@@ -8,17 +9,18 @@
     <div class="progress" #bar style="display:inline-block;"> </div><br>
 
           <!--  <var class ="qte">{{product?.quantite}}</var>-->
+          <!-- qté que je possède-->
             <span class ="qte">{{product?.quantite}}</span>
 
 
-
+                <!--prix de la qté que je peux acheter-->
                 <span class="quantite">$ {{nbmax}}</span>
-
+                <!--nb de produits que je peux acheter-->
                 <span class="quantite2" [innerHTML]="nbBuy"></span>
                 <input type="button" class="acheter" value ="Buy" (click)="achat()"/>
 
 
-
+    <!--Tps restant à la production du produit-->
     <var class ="temps">{{product?.timeleft | date:'mm:ss' }}</var>
 
 </div>

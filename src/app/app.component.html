@@ -1,10 +1,10 @@
+<!-- STRUCTURE DE LA PAGE -->
 <div class="container-fluid">
    <div class="row">
      <!-->En-tête -->
    <div class="col-md-4" id="titre">
      <!--Logo et titre -->
   <!--   <img src="/assets/images/fruit seller.jpg" alt ="logo marchand de fruits" width=100 height=100/>Fruit seller-->
-
      <img [attr.src]="server+world.logo" [attr.width]=100 [attr.height]=100/><span id="worldname">{{world.name}}</span>
 
    </div>
@@ -35,7 +35,9 @@
 
 
    </div>
-
+<!-- Page des managers qui s'affichent quand on clique sur le bouton Managers
+Si je n'ai pas débloqué le manager et que j'ai assez d'argent, un badge New s'affiche
+Clic sur Hire Manager : engage un manager à condition que l'argent est suffisant-->
 <div class="manager">
    <app-modal #managersModal>
     <div class="app-modal-header">
@@ -45,7 +47,7 @@
 
     <div *ngFor="let manager of world.managers.pallier">
         <li>
-            <img [src]="server+manager.logo" alt="" [attr.width]=70 [attr.height]=70/><br>
+            <img [src]="server+manager.logo" alt="" [attr.width]=60 [attr.height]=60/><br>
             <span>{{manager.name}}</span>
             <p>$ {{manager.seuil}}</p>
             <button class ="btnManager" type="button" *ngIf="manager.unlocked == false" (click)="managerHired(manager)">Hire!</button>
@@ -87,28 +89,28 @@
 
 
           <!--fraises-->
-      <!--    <app-product [qtmulti]="qtmulti" [money]="world.money" [prod]="world.products.product[3]"
+          <app-product [qtmulti]="qtmulti" [money]="world.money" [prod]="world.products.product[3]"
           class="product col-md-6" (notifyProduction)="onProductionDone($event)" (notifyBuyProduct)="onBuy($event)"></app-product>
           </div>
 
 
        <div class="row" >
          <!--pasteque-->
-  <!--       <app-product [qtmulti]="qtmulti" [money]="world.money" [prod]="world.products.product[4]"
+         <app-product [qtmulti]="qtmulti" [money]="world.money" [prod]="world.products.product[4]"
          class="product col-md-6" (notifyProduction)="onProductionDone($event)" (notifyBuyProduct)="onBuy($event)"></app-product>
 
 
           <!--mangue-->
-  <!--        <app-product [qtmulti]="qtmulti" [money]="world.money" [prod]="world.products.product[5]"
+          <app-product [qtmulti]="qtmulti" [money]="world.money" [prod]="world.products.product[5]"
           class="product col-md-6" (notifyProduction)="onProductionDone($event)" (notifyBuyProduct)="onBuy($event)"></app-product>
           </div>
        </div>
--->
+
 
 </div>
-</div>
-</div>
 
+
+<!--Pour faire appel au msg ephemere. Ca ne marche pas car pb de version d'angular-->
 <toaster-container></toaster-container>
 
 </div>
