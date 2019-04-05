@@ -26,7 +26,10 @@
    <div class="col-md-2" data-toggle="modal">
 
 
-     <button class ="investissement" type="button"> Unlocks</button> <br>
+
+     <button class ="investissement" type="button"> Managers</button> <br>
+     <button class ="investissement" type="button"
+     data-toggle="modal" (click)="UnlockModals.show()"> Unlocks</button><br>
      <button class ="investissement" type="button"> Cash Upgrades</button> <br>
      <button class ="investissement" type="button"> Angel Upgrades</button> <br>
      <button class ="investissement" type="button"
@@ -51,6 +54,30 @@ Clic sur Hire Manager : engage un manager à condition que l'argent est suffisan
             <span>{{manager.name}}</span>
             <p>$ {{manager.seuil}}</p>
             <button class ="btnManager" type="button" *ngIf="manager.unlocked == false" (click)="managerHired(manager)">Hire!</button>
+        </li>
+    </div>
+    </div>
+    <div class="app-modal-footer">
+    <button type="button" class="btn btn-default"
+   (click)="managersModal.hide()">Close</button>
+    </div>
+   </app-modal>
+
+<!--Page des unlocks-->
+
+   <app-modal #UnlockModals>
+    <div class="app-modal-header">
+    <h4 class="modal-title">Choose your favorite unlock !</h4>
+    </div>
+    <div class="app-modal-body">
+
+    <div *ngFor="let pallier of world.allunlocks.pallier">
+        <li>
+            <img [src]="server+pallier.logo" alt="" [attr.width]=60 [attr.height]=60/><br>
+            <span>{{pallier.name}}</span>
+            <p>$ {{pallier.seuil}}</p>
+            <p>Type : {{pallier.typeratio}}</p>
+            <p>Ratio : {{pallier.ratio}}</p>
         </li>
     </div>
     </div>
